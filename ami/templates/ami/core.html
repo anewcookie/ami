@@ -22,12 +22,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-col s4">
       <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
+	
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
-    </div>
+      
+	   {% if user.is_authenticated %}
+		 <span>Welcome, <strong>{{ user.get_username }}</strong></span><br>
+		 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+	   {% else %}
+		 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+	   {% endif %} 
+	</div>
   </div>
   <hr>
   <div class="w3-container">
@@ -43,7 +47,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
   </div>
 </nav>
-
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
