@@ -42,9 +42,10 @@ class Inspection(models.Model):
 	date = models.DateField()
 	room = models.PositiveSmallIntegerField()
 	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
-	status = models.CharField(max_length=5,choices=statuses) 
+	status = models.CharField(max_length=5,choices=statuses)
+	gigs = models.IntegerField()
 	inspector = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
-	notes = models.CharField(max_length=200)
+	notes = models.CharField(max_length=200,null=True)
 
 class GigChoice(models.Model):
 	gig = models.CharField(max_length=300, primary_key = True)

@@ -9,6 +9,8 @@ from django.contrib import messages
 
 from .models import Barracks
 from .models import GigChoice
+from .models import Inspection
+from .models import Checklist
 from .forms import *
 from .models import Type
 import datetime
@@ -20,19 +22,37 @@ def overview(request):
 
 @login_required
 def inspection(request):
-	if request.method == 'POST':
-	    form = request.POST
-	    print(form)
-	    messages.success(request, 'Inspection Submitted!')
-	    return redirect('/')
+    if request.method == 'POST':
+        form = request.POST
+        print(form)
+        date = datetime.datetime.now().date()
+        room = form['room']
+        barracks = Barracks(form['barracks'])
+        status = form['finalStatus']
+        gigs = form['gigNumber']
+        inspector = request.user
+        notes = ""
+        i = Inspection(date=date,room=room,barracks=barracks,status=status,gigs=gigs,inspector=inspector,notes=notes)
+        i.save()
+        
+        for key in form:
+            if form[key] == "on":
+                inspectionID = i
+                gig = GigChoice(key)
+                c = Checklist(inspectionID=inspectionID,gig=gig)
+                c.save()
+        
+        
+        messages.success(request, 'Inspection Submitted!')
+        return redirect('/')
 
-	template = loader.get_template('ami/inspection.html')
-	context = {
+    template = loader.get_template('ami/inspection.html')
+    context = {
         'barracksList': Barracks.objects.order_by('-name')[:5],
-		'gigList': GigChoice.objects.all(),
-		'typeList': Type.objects.all()
-	}
-	return HttpResponse(template.render(context, request))	
+        'gigList': GigChoice.objects.all(),
+        'typeList': Type.objects.all()
+       }
+    return HttpResponse(template.render(context, request))	
 	
 @login_required
 def myRoom(request):

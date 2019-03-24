@@ -36,6 +36,7 @@
 		<p id=PMIdesc style="margin-top:0; color:grey">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.</p>
 		</div>
 		<div class="statusBar w3-center" class=w3-center style="background-color:lightgreen">
+		Gigs: <span style="margin-right:30px" class=gigs>0</span>
 		Status: <span class=status>Passing</span>
 		<input style="margin-left:20" type="submit" value="Submit Inspection">
 		</div>
@@ -58,9 +59,12 @@
 			{% endfor %}	
         </div>
 	    <div class="statusBar w3-center" style="background-color:lightgreen">
+		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
 		  Status: <span class=status>Passing</span>
 		  <input style="margin-left:20" type="submit" value="Submit Inspection">
 		</div>
+		<input name="finalStatus" id="finalStatus" value="Pass" hidden>
+		<input name="gigNumber" id="gigNumber" value=0 hidden>
       </div>
     </form>
   </div>
@@ -70,20 +74,29 @@
 function statusChange() {
     bars = document.getElementsByClassName('statusBar');
     statusText = document.getElementsByClassName('status');
+	gigsText = document.getElementsByClassName('gigs');
     PMI = document.forms["inspection"]["PMI"].value;
-    if (document.querySelectorAll('input[type="checkbox"]:checked').length >= 3) {
+	gigs = document.querySelectorAll('input[type="checkbox"]:checked').length
+    if (gigs >= 3) {
         for (var i = 0; i < bars.length; i++)  {
             bars[i].style.backgroundColor="red";
+			gigsText[i].textContent=gigs;
             statusText[i].textContent="Failing";
         }
+		document.getElementById("finalStatus").value = "Fail";
+		document.getElementById("gigNumber").value = gigs;
     }else{
         for (var i = 0; i < bars.length; i++)  {
+			gigsText[i].textContent=gigs;
+			document.getElementById("gigNumber").value = gigs;
             if (PMI.includes("Yes")) {
                 bars[i].style.backgroundColor="lightblue";
                 statusText[i].textContent="PMI";
+				document.getElementById("finalStatus").value = "PMI";
             }else{
                 bars[i].style.backgroundColor="lightgreen";
                 statusText[i].textContent="Passing";
+				document.getElementById("finalStatus").value = "Pass";
             }          
         }
     }
@@ -101,4 +114,5 @@ function changePMI() {
         statusChange();
     }    
 }
+changePMI()
  </script>
