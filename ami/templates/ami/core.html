@@ -26,10 +26,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-col s8 w3-bar">
       
 	   {% if user.is_authenticated %}
-		 <span>Welcome, <strong>{{ user.get_username }}</strong></span><br>
+		 <span>Welcome, <strong>CDT {{ user.last_name }}</strong></span><br>
 		 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
 	   {% else %}
 		 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+		 <li><a href="{% url 'signup' %}">Create Account</a></li>
 	   {% endif %} 
 	</div>
   </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -26,9 +27,7 @@ statuses = (
 )
 
 class Cadet(models.Model):
-	firstName = models.CharField(max_length=50)
-	lastName = models.CharField(max_length=50)
-	xnumber = models.PositiveSmallIntegerField(primary_key = True)
+	username = models.ForeignKey(User,on_delete=models.CASCADE,primary_key = True)
 	room = models.PositiveSmallIntegerField()
 	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
 	squad = models.PositiveSmallIntegerField(choices=numUnits)
