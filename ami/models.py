@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -26,12 +28,12 @@ statuses = (
 	('PMI','PMI')
 )
 
-class Cadet(models.Model):
-	username = models.ForeignKey(User,on_delete=models.CASCADE,primary_key = True)
-	room = models.PositiveSmallIntegerField()
+class Profile(models.Model):
+	user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key = True)
+	room = models.PositiveSmallIntegerField(null=True)
 	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
-	squad = models.PositiveSmallIntegerField(choices=numUnits)
-	platoon = models.PositiveSmallIntegerField(choices=numUnits)
+	squad = models.PositiveSmallIntegerField(choices=numUnits,null=True)
+	platoon = models.PositiveSmallIntegerField(choices=numUnits,null=True)
 	company = models.ForeignKey('Company',null=True,on_delete=models.SET_NULL)
 	position = models.ForeignKey('Position',null=True,on_delete=models.SET_NULL)
 	
@@ -41,7 +43,7 @@ class Inspection(models.Model):
 	room = models.PositiveSmallIntegerField()
 	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
 	status = models.CharField(max_length=5,choices=statuses) 
-	inspector = models.ForeignKey('Cadet',null=True,on_delete=models.SET_NULL)
+	inspector = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
 	notes = models.CharField(max_length=200)
 
 class GigChoice(models.Model):
@@ -65,3 +67,16 @@ class Company(models.Model):
 
 class Type(models.Model):
 	name = models.CharField(max_length=100, primary_key = True)		
+	
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+	try:
+		instance.profile.save()
+	except Exception:
+		Profile.objects.create(user=instance)

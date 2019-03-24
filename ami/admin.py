@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Cadet
+from .models import Profile
 from .models import Inspection
 from .models import Barracks
 from .models import Position
@@ -11,7 +11,7 @@ from .models import GigChoice
 from .models import Company
 from .models import Type
 
-admin.site.register(Cadet)
+admin.site.register(Profile)
 admin.site.register(Inspection)
 admin.site.register(Barracks)
 admin.site.register(Position)

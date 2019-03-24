@@ -4,10 +4,12 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.db import transaction
+from django.contrib import messages
 
 from .models import Barracks
 from .models import GigChoice
-from .forms import SignUpForm
+from .forms import *
 from .models import Type
 import datetime
 
@@ -34,8 +36,26 @@ def myRoom(request):
 def subordinates(request):
 	pass
 
+@login_required
+@transaction.atomic
 def settings(request):
-	pass
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('/')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'ami/settings.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
 
 
 def signup(request):
@@ -50,5 +70,5 @@ def signup(request):
             return redirect('settings')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'ami/signup.html', {'form': form})
 	
