@@ -22,3 +22,8 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('room', 'barracks', 'squad', 'platoon', 'company', 'position')
+		
+#class InspectionForm(forms.ModelForm):
+#    class Meta:
+#        model = Inspection
+#        fields = ('barracks', 'room', 'status', 'platoon', 'company', 'position')

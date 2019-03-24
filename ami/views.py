@@ -18,7 +18,14 @@ import datetime
 def overview(request):
 	pass
 
+@login_required
 def inspection(request):
+	if request.method == 'POST':
+	    form = request.POST
+	    print(form)
+	    messages.success(request, 'Inspection Submitted!')
+	    return redirect('/')
+
 	template = loader.get_template('ami/inspection.html')
 	context = {
         'barracksList': Barracks.objects.order_by('-name')[:5],

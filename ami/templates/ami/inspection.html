@@ -11,7 +11,8 @@
   </header>
 
   <div class="w3-container">
-    <form>
+    <form name="inspection" method=post>
+	{% csrf_token %}
       <div>
         <h4>Options</h5>
 		<div class="w3-third">Barracks:
@@ -25,18 +26,18 @@
 			<input name="room" type="number" required>
 		</div>
 		<div>PMI:
-			<select name="PMI">
+			<select name="PMI" onchange="changePMI()">
 				<option value="No"> No</option>
 				<option value="Yes"> Yes</option>
 			</select>
 		</div>
 		<div>
-		<p name=AMIdesc style="margin-bottom:0">AMI = Entire sheet met with no more than three gigs.</p>
-		<p name=PMIdesc style="margin-top:0; color:grey">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.</p>
+		<p id=AMIdesc style="margin-bottom:0">AMI = Entire sheet met with no more than three gigs.</p>
+		<p id=PMIdesc style="margin-top:0; color:grey">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.</p>
 		</div>
 		<div class="statusBar w3-center" class=w3-center style="background-color:lightgreen">
 		Status: <span class=status>Passing</span>
-		<input style="margin-left:20" type="submit">
+		<input style="margin-left:20" type="submit" value="Submit Inspection">
 		</div>
 		
 	  </div>
@@ -49,7 +50,7 @@
 			  {% for gig in gigList %}
 			    {% if gig.type == type %}
 					<div>
-					<input class="w3-check"type="checkbox">
+					<input class="w3-check" type="checkbox" class="gig" name='{{ gig.gig }}' onchange="statusChange()">
 					<label>{{ gig.gig }}</label>
 					</div>
 				{% endif %}
@@ -58,9 +59,46 @@
         </div>
 	    <div class="statusBar w3-center" style="background-color:lightgreen">
 		  Status: <span class=status>Passing</span>
-		  <input style="margin-left:20" type="submit">
+		  <input style="margin-left:20" type="submit" value="Submit Inspection">
 		</div>
       </div>
     </form>
   </div>
  </div>
+ 
+ <script>
+function statusChange() {
+    bars = document.getElementsByClassName('statusBar');
+    statusText = document.getElementsByClassName('status');
+    PMI = document.forms["inspection"]["PMI"].value;
+    if (document.querySelectorAll('input[type="checkbox"]:checked').length >= 3) {
+        for (var i = 0; i < bars.length; i++)  {
+            bars[i].style.backgroundColor="red";
+            statusText[i].textContent="Failing";
+        }
+    }else{
+        for (var i = 0; i < bars.length; i++)  {
+            if (PMI.includes("Yes")) {
+                bars[i].style.backgroundColor="lightblue";
+                statusText[i].textContent="PMI";
+            }else{
+                bars[i].style.backgroundColor="lightgreen";
+                statusText[i].textContent="Passing";
+            }          
+        }
+    }
+}
+
+function changePMI() {
+    PMI = document.forms["inspection"]["PMI"].value;
+    if (PMI.includes("Yes")) {
+        document.getElementById('PMIdesc').style.color="black";
+        document.getElementById('AMIdesc').style.color="grey";
+        statusChange();
+    }else{
+        document.getElementById('PMIdesc').style.color="grey";
+        document.getElementById('AMIdesc').style.color="black";
+        statusChange();
+    }    
+}
+ </script>
