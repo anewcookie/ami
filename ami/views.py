@@ -18,7 +18,11 @@ import datetime
 # Create your views here.
 
 def overview(request):
-	pass
+    template = loader.get_template('ami/overview.html')
+    context = {
+        'test': 'test'
+       }
+    return HttpResponse(template.render(context, request))	
 
 @login_required
 def inspection(request):
