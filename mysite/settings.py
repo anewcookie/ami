@@ -25,7 +25,7 @@ SECRET_KEY = 'vo*n24@qgb(u66==!wk$kn&z^etrcp6*hwo^*e(6z^+b+js%v7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cadet-ami.herokuapp.com']
 
 
 # Application definition
