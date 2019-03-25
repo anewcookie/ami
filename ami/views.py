@@ -7,10 +7,7 @@ from django.shortcuts import render, redirect
 from django.db import transaction
 from django.contrib import messages
 
-from .models import Barracks
-from .models import GigChoice
-from .models import Inspection
-from .models import Checklist
+from .models import *
 from .forms import *
 from .models import Type
 import datetime
@@ -66,7 +63,19 @@ def inspection(request):
 	
 @login_required
 def myRoom(request):
-	pass
+    template = loader.get_template('ami/room.html')
+    
+    inspections = Inspection.objects.filter(room=request.user.profile.room)
+    inspectionList = []
+    for inspection in inspections:
+        inspection.gigs = Checklist.objects.filter(inspectionID=inspection.id)
+        inspectionList.append(inspection)
+    print(inspectionList)
+        
+    context = {
+        'inspectionList': inspectionList,
+       }
+    return HttpResponse(template.render(context, request))	
 
 	
 @login_required
