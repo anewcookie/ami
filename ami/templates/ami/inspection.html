@@ -16,9 +16,9 @@
       <div>
         <h4>Options</h5>
 		<div class="w3-third">Barracks:
-			<select name="barracks">
+			<select name="barracks" value="{{home}}">
 				{% for barracks in barracksList %}
-					<option value={{ barracks.name }}> {{barracks.name}}</option>
+					<option value={{ barracks.name }} {%if barracks.name == home%} selected {%endif%}> {{barracks.name}}</option>
 				{% endfor %}
 			</select>
 		</div>
@@ -56,9 +56,10 @@
 					</div>
 				{% endif %}
 			  {% endfor %}
-			{% endfor %}	
+			{% endfor %}
+            <div><p class="w3-white">Notes </p> <input name=notes class="w3-input w3-animate-input" type="text" style="width:200px"></div>
         </div>
-	    <div class="statusBar w3-center" style="background-color:lightgreen">
+	    <div class="statusBar w3-center" style="margin-top:10px; background-color:lightgreen">
 		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
 		  Status: <span class=status>Passing</span>
 		  <input style="margin-left:20" type="submit" value="Submit Inspection">

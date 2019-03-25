@@ -35,7 +35,7 @@ def inspection(request):
         status = form['finalStatus']
         gigs = form['gigNumber']
         inspector = request.user
-        notes = ""
+        notes = form['notes']
         i = Inspection(date=date,room=room,barracks=barracks,status=status,gigs=gigs,inspector=inspector,notes=notes)
         i.save()
         
@@ -47,14 +47,20 @@ def inspection(request):
                 c.save()
         
         
-        messages.success(request, 'Inspection Submitted!')
+        messages.success(request, 'Inspection submitted successfully!')
         return redirect('/')
 
     template = loader.get_template('ami/inspection.html')
+    try:
+        home = request.user.profile.barracks.name
+    except Exception:
+        messages.error(request, 'Please update your barracks information.')
+        return redirect('/settings/')
     context = {
-        'barracksList': Barracks.objects.order_by('-name')[:5],
+        'barracksList': Barracks.objects.order_by('name'),
         'gigList': GigChoice.objects.all(),
-        'typeList': Type.objects.all()
+        'typeList': Type.objects.all(),
+        'home':home,
        }
     return HttpResponse(template.render(context, request))	
 	
