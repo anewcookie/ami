@@ -51,8 +51,8 @@
 			  {% for gig in gigList %}
 			    {% if gig.type == type %}
 					<div>
-					<input class="w3-check" type="checkbox" class="gig" name='{{ gig.gig }}' onchange="statusChange()">
-					<label>{{ gig.gig }}</label>
+					<input class="w3-check" type="checkbox" class="gig" name='{{ gig.gigName }}' onchange="statusChange()">
+					<label>{{gig.gigName}}: {{ gig.gigDesc }}</label>
 					</div>
 				{% endif %}
 			  {% endfor %}

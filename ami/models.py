@@ -48,7 +48,8 @@ class Inspection(models.Model):
 	notes = models.CharField(max_length=200,null=True)
 
 class GigChoice(models.Model):
-	gig = models.CharField(max_length=300, primary_key = True)
+	gigName = models.CharField(max_length=100, primary_key = True)
+	gigDesc = models.CharField(max_length=300)
 	type = models.ForeignKey('Type',null=True,on_delete=models.CASCADE)
 
 class Position(models.Model):
