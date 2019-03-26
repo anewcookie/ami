@@ -30,27 +30,27 @@ statuses = (
 
 class Profile(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key = True)
-	room = models.PositiveSmallIntegerField(null=True)
-	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
-	squad = models.PositiveSmallIntegerField(choices=numUnits,null=True)
-	platoon = models.PositiveSmallIntegerField(choices=numUnits,null=True)
-	company = models.ForeignKey('Company',null=True,on_delete=models.SET_NULL)
-	position = models.ForeignKey('Position',null=True,on_delete=models.SET_NULL)
+	room = models.PositiveSmallIntegerField(blank=True,null=True)
+	barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
+	squad = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
+	platoon = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
+	company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
+	position = models.ForeignKey('Position',blank=True,null=True,on_delete=models.SET_NULL)
 	
 class Inspection(models.Model):
 	#ID (AutoField) is implied
 	date = models.DateField()
 	room = models.PositiveSmallIntegerField()
-	barracks = models.ForeignKey('Barracks',null=True,on_delete=models.SET_NULL)
+	barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
 	status = models.CharField(max_length=5,choices=statuses)
 	gigs = models.IntegerField()
-	inspector = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
-	notes = models.CharField(max_length=200,null=True)
+	inspector = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
+	notes = models.CharField(max_length=200,blank=True,null=True)
 
 class GigChoice(models.Model):
 	gigName = models.CharField(max_length=100, primary_key = True)
 	gigDesc = models.CharField(max_length=300)
-	type = models.ForeignKey('Type',null=True,on_delete=models.CASCADE)
+	type = models.ForeignKey('Type',blank=True,null=True,on_delete=models.CASCADE)
 
 class Position(models.Model):
 	position = models.CharField(max_length=50, primary_key = True)
@@ -62,7 +62,7 @@ class Barracks(models.Model):
 class Checklist(models.Model):
 	#ID (AutoField) is implied
 	inspectionID = models.ForeignKey('Inspection',on_delete=models.CASCADE)
-	gig = models.ForeignKey('GigChoice',null=True,on_delete=models.SET_NULL)
+	gig = models.ForeignKey('GigChoice',blank=True,null=True,on_delete=models.SET_NULL)
 	
 class Company(models.Model):
 	name = models.CharField(max_length=2, primary_key = True)

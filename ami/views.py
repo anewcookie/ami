@@ -54,6 +54,7 @@ def inspection(request):
         messages.error(request, 'Please update your barracks information.')
         return redirect('/settings/')
     context = {
+        'title':"My Room",
         'barracksList': Barracks.objects.order_by('name'),
         'gigList': GigChoice.objects.all(),
         'typeList': Type.objects.all(),
