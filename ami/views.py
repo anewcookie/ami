@@ -65,10 +65,10 @@ def inspection(request):
 def myRoom(request):
     template = loader.get_template('ami/room.html')
     
-    inspections = Inspection.objects.filter(room=request.user.profile.room)
+    inspections = Inspection.objects.filter(room=request.user.profile.room).order_by("-date")
     inspectionList = []
     for inspection in inspections:
-        inspection.gigs = Checklist.objects.filter(inspectionID=inspection.id)
+        inspection.gigsData = Checklist.objects.filter(inspectionID=inspection.id)
         inspectionList.append(inspection)
     print(inspectionList)
         
