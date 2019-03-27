@@ -1,0 +1,6 @@
+__pycace__/
+*.py[cod]
+*.log
+*.pot
+local_settings.py
+.env
