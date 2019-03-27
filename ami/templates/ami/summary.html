@@ -1,0 +1,32 @@
+{% load static %}
+
+{% include 'ami/core.html' %}
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5>
+  </header>
+    
+    <h4>Select Company: 
+    <select name="company" onchange="(window.location = '/summary/' + this.options[this.selectedIndex].value);">
+        {% for company in companyList %}
+            <option value={{ company.name }} {%if company.name == home%} selected {%endif%}> {{company.name}}</option>
+        {% endfor %}
+    </select>
+    </h4>
+
+ {% for room in roomList %}
+     <div style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
+        <a href="/room/{{room.barracks.name}}/{{room.room}}"> {{room.room}}</a>
+     </div>
+ {%endfor%}
+ 
+ <div style="margin:20px;">
+ <span style="margin:10px; background-color:lightgreen"> Green = Pass </span>
+ <span style="margin:10px; background-color:red"> Red = Fail </span>
+ <span style="margin:10px; background-color:aqua"> Blue = PMI </span>
+ <span style="margin:10px; background-color:white"> White = Not Inspected </span>
+  </div>
