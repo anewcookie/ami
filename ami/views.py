@@ -25,9 +25,23 @@ def overview(request):
 def summary(request):
     template = loader.get_template('ami/summary.html')
     company=request.user.profile.company
+    profileList=Profile.objects.filter(company=company).order_by('room')
+    roomList=[]
+    distinct=[]
+    for profile in profileList:
+        if profile.room and profile.room not in distinct:
+            roomList.append(profile)
+            distinct.append(profile.room)
+    inspectionList=[]
+    for room in roomList:
+        inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room.room)
+        if inspection:
+            room.status=inspection[0].status
+        else:
+            room.status=None
     context = {
         'barracksList': Barracks.objects.order_by('name'),
-        'roomList': Profile.objects.filter(company=company).order_by('room'),
+        'roomList': roomList,
        }
     return HttpResponse(template.render(context, request))	    
     

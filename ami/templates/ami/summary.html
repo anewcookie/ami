@@ -9,7 +9,11 @@
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5>
   </header>
+  
+  
 
  {% for room in roomList %}
-    {{room.room}}
+     <div style="background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
+        <a href="/room/{{room.barracks.name}}/{{room.room}}"> {{room.room}}</a>
+     <div>
  {%endfor%}
