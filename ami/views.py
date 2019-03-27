@@ -21,10 +21,13 @@ def overview(request):
        }
     return HttpResponse(template.render(context, request))	
 
+@login_required
 def summary(request):
     template = loader.get_template('ami/summary.html')
+    company=request.user.profile.company
     context = {
-        'test': 'test'
+        'barracksList': Barracks.objects.order_by('name'),
+        'roomList': Profile.objects.filter(company=company).order_by('room'),
        }
     return HttpResponse(template.render(context, request))	    
     
