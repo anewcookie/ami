@@ -22,9 +22,10 @@ def overview(request):
     return HttpResponse(template.render(context, request))	
 
 @login_required
-def summary(request):
+def summary(request,company):
     template = loader.get_template('ami/summary.html')
-    company=request.user.profile.company
+    if company=="0":
+        company=request.user.profile.company.name
     profileList=Profile.objects.filter(company=company).order_by('room')
     roomList=[]
     distinct=[]
@@ -40,7 +41,8 @@ def summary(request):
         else:
             room.status=None
     context = {
-        'barracksList': Barracks.objects.order_by('name'),
+        'companyList': Company.objects.order_by('name'),
+        'home':company,
         'roomList': roomList,
        }
     return HttpResponse(template.render(context, request))	    
