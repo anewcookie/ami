@@ -21,6 +21,13 @@ def overview(request):
        }
     return HttpResponse(template.render(context, request))	
 
+def summary(request):
+    template = loader.get_template('ami/summary.html')
+    context = {
+        'test': 'test'
+       }
+    return HttpResponse(template.render(context, request))	    
+    
 @login_required
 def inspection(request):
     if request.method == 'POST':
@@ -63,10 +70,12 @@ def inspection(request):
     return HttpResponse(template.render(context, request))	
 	
 @login_required
-def myRoom(request):
+def myRoom(request,barracks,room):
     template = loader.get_template('ami/room.html')
-    
-    inspections = Inspection.objects.filter(room=request.user.profile.room).order_by("-date")
+    if barracks == "myroom" and room == 0000:
+        barracks = request.user.profile.barracks.name
+        room = request.user.profile.room
+    inspections = Inspection.objects.filter(barracks=barracks,room=room).order_by("-date")
     inspectionList = []
     for inspection in inspections:
         inspection.gigsData = Checklist.objects.filter(inspectionID=inspection.id)
@@ -75,6 +84,8 @@ def myRoom(request):
         
     context = {
         'inspectionList': inspectionList,
+        'barracks':barracks,
+        'room':room,
        }
     return HttpResponse(template.render(context, request))	
 
