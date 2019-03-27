@@ -54,7 +54,7 @@ class GigChoice(models.Model):
 
 class Position(models.Model):
 	position = models.CharField(max_length=50, primary_key = True)
-	leadershipLevel= models.CharField(max_length=50, choices = levels)
+	leadershipLevel= models.CharField(max_length=50, choices = levels,blank=True,null=True)
 	
 class Barracks(models.Model):
 	name = models.CharField(max_length=50, primary_key = True)
