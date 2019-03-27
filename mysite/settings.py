@@ -81,13 +81,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'defaultAlt': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cadetami-fc40d:us-east4:cadet-ami',
-        'USER': 'ami-app',
-        'PASSWORD': 'majcrosser',
-        'HOST': '35.199.17.43',
-    }
+#    'defaultAlt': {
+#       'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'cadetami-fc40d:us-east4:cadet-ami',
+#        'USER': 'ami-app',
+#        'HOST': '35.199.17.43',
+#    }
 }
 
 
