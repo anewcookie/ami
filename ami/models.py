@@ -31,7 +31,6 @@ statuses = (
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     room = models.ForeignKey('Room',blank=True,null=True,on_delete=models.SET_NULL)
-    barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
     squad = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
     platoon = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
     company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
@@ -45,10 +44,11 @@ class Inspection(models.Model):
     barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
     status = models.CharField(max_length=5,choices=statuses)
     gigs = models.IntegerField()
+    choices = models.ManyToManyField('GigChoice',blank=True,null=True)
     inspector = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     notes = models.CharField(max_length=200,blank=True,null=True)
     def __str__(self):
-        return str(self.date + " - " + self.barracks + str(self.room))
+        return str(str(self.date) + " - " + str(self.room))
         
 class GigChoice(models.Model):
     gigName = models.CharField(max_length=100)
@@ -67,12 +67,6 @@ class Barracks(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
         return str(self.name)
-        
-class Checklist(models.Model):
-    inspectionID = models.ForeignKey('Inspection',on_delete=models.CASCADE)
-    gig = models.ForeignKey('GigChoice',blank=True,null=True,on_delete=models.SET_NULL)
-    def __str__(self):
-        return str(self.inspectionID)
         	
 class Company(models.Model):
     name = models.CharField(max_length=2)
@@ -80,10 +74,10 @@ class Company(models.Model):
         return str(self.name)
         
 class Room(models.Model):
-    number = models.PositiveSmallIntegerField(blank=True,null=True)
-    company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
+    number = models.PositiveSmallIntegerField()
+    barracks = models.ForeignKey('Barracks',on_delete=models.CASCADE)
     def __str__(self):
-        return str(self.company,self.number)
+        return (self.barracks.name + "-" + str(self.number))
         
 class Type(models.Model):
     name = models.CharField(max_length=100)		

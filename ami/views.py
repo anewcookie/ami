@@ -30,9 +30,12 @@ def summary(request,company):
         except Exception:
             messages.error(request, 'Please update your company information.')
             return redirect('/settings/')
-    roomList=Room.objects.filter(company=company).order_by('room')
+    profileList=Profile.objects.filter(company__name=company).order_by('room')
+    roomList=set()
+    for profile in profileList:
+        roomList.add(profile.room)
     for room in roomList:
-        inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room.room)
+        inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room)
         if inspection:
             room.status=inspection[0].status
         else:
@@ -50,21 +53,21 @@ def inspection(request):
         form = request.POST
         print(form)
         date = datetime.datetime.now().date()
-        room = form['room']
-        barracks = Barracks(form['barracks'])
+        room = Room.objects.get(barracks__name=form['barracks'], number=form['room'])
         status = form['finalStatus']
         gigs = form['gigNumber']
         inspector = request.user
         notes = form['notes']
-        i = Inspection(date=date,room=room,barracks=barracks,status=status,gigs=gigs,inspector=inspector,notes=notes)
-        i.save()
-        
+        i = Inspection(date=date,room=room,status=status,gigs=gigs,inspector=inspector,notes=notes)
+        i.save() 
         for key in form:
             if form[key] == "on":
                 inspectionID = i
-                gig = GigChoice(key)
-                c = Checklist(inspectionID=inspectionID,gig=gig)
-                c.save()
+                gig = GigChoice.objects.get(gigName=key)
+                i.choices.add(gig)
+        
+        i.save()        
+
         
         
         messages.success(request, 'Inspection submitted successfully!')
@@ -72,7 +75,7 @@ def inspection(request):
 
     template = loader.get_template('ami/inspection.html')
     try:
-        home = request.user.profile.barracks.name
+        home = request.user.profile.room.barracks.name
     except Exception:
         messages.error(request, 'Please update your barracks information.')
         return redirect('/settings/')
@@ -86,25 +89,17 @@ def inspection(request):
     return HttpResponse(template.render(context, request))	
 	
 @login_required
-def myRoom(request,barracks,room):
+def myRoom(request,room):
     template = loader.get_template('ami/room.html')
-    if barracks == "myroom" and room == 0000:
+    if room == "myroom":
         try:
-            home = request.user.profile.barracks.name
-            room = request.user.profile.room
+            room = str(request.user.profile.room)
         except Exception:
             messages.error(request, 'Please update your barracks and room information.')
             return redirect('/settings/')
-    inspections = Inspection.objects.filter(barracks=barracks,room=room).order_by("-date")
-    inspectionList = []
-    for inspection in inspections:
-        inspection.gigsData = Checklist.objects.filter(inspectionID=inspection.id)
-        inspectionList.append(inspection)
-    print(inspectionList)
         
     context = {
-        'inspectionList': inspectionList,
-        'barracks':barracks,
+        'inspectionList': Inspection.objects.filter(room__barracks__name=room.split("-")[0],room__number=int(room.split("-")[1])).order_by("-date"),
         'room':room,
        }
     return HttpResponse(template.render(context, request))	
