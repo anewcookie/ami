@@ -29,46 +29,66 @@ statuses = (
 )
 
 class Profile(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key = True)
-	room = models.PositiveSmallIntegerField(blank=True,null=True)
-	barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
-	squad = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
-	platoon = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
-	company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
-	position = models.ForeignKey('Position',blank=True,null=True,on_delete=models.SET_NULL)
-	
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    room = models.ForeignKey('Room',blank=True,null=True,on_delete=models.SET_NULL)
+    barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
+    squad = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
+    platoon = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
+    company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
+    position = models.ForeignKey('Position',blank=True,null=True,on_delete=models.SET_NULL)
+    def __str__(self):
+        return str(self.user)
+        	
 class Inspection(models.Model):
-	#ID (AutoField) is implied
-	date = models.DateField()
-	room = models.PositiveSmallIntegerField()
-	barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
-	status = models.CharField(max_length=5,choices=statuses)
-	gigs = models.IntegerField()
-	inspector = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
-	notes = models.CharField(max_length=200,blank=True,null=True)
-
+    date = models.DateField()
+    room = models.ForeignKey('Room',blank=True,null=True,on_delete=models.SET_NULL)
+    barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
+    status = models.CharField(max_length=5,choices=statuses)
+    gigs = models.IntegerField()
+    inspector = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
+    notes = models.CharField(max_length=200,blank=True,null=True)
+    def __str__(self):
+        return str(self.date + " - " + self.barracks + str(self.room))
+        
 class GigChoice(models.Model):
-	gigName = models.CharField(max_length=100, primary_key = True)
-	gigDesc = models.CharField(max_length=300)
-	type = models.ForeignKey('Type',blank=True,null=True,on_delete=models.CASCADE)
-
+    gigName = models.CharField(max_length=100)
+    gigDesc = models.CharField(max_length=300)
+    type = models.ForeignKey('Type',blank=True,null=True,on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.gigName)
+    
 class Position(models.Model):
-	position = models.CharField(max_length=50, primary_key = True)
-	leadershipLevel= models.CharField(max_length=50, choices = levels,blank=True,null=True)
-	
+    position = models.CharField(max_length=50)
+    leadershipLevel= models.CharField(max_length=50, choices = levels,blank=True,null=True)
+    def __str__(self):
+        return str(self.position)
+        	
 class Barracks(models.Model):
-	name = models.CharField(max_length=50, primary_key = True)
-	
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return str(self.name)
+        
 class Checklist(models.Model):
-	#ID (AutoField) is implied
-	inspectionID = models.ForeignKey('Inspection',on_delete=models.CASCADE)
-	gig = models.ForeignKey('GigChoice',blank=True,null=True,on_delete=models.SET_NULL)
-	
+    inspectionID = models.ForeignKey('Inspection',on_delete=models.CASCADE)
+    gig = models.ForeignKey('GigChoice',blank=True,null=True,on_delete=models.SET_NULL)
+    def __str__(self):
+        return str(self.inspectionID)
+        	
 class Company(models.Model):
-	name = models.CharField(max_length=2, primary_key = True)
-
+    name = models.CharField(max_length=2)
+    def __str__(self):
+        return str(self.name)
+        
+class Room(models.Model):
+    number = models.PositiveSmallIntegerField(blank=True,null=True)
+    company = models.ForeignKey('Company',blank=True,null=True,on_delete=models.SET_NULL)
+    def __str__(self):
+        return str(self.company,self.number)
+        
 class Type(models.Model):
-	name = models.CharField(max_length=100, primary_key = True)		
+    name = models.CharField(max_length=100)		
+    def __str__(self):
+        return str(self.name)
 	
 
 @receiver(post_save, sender=User)
@@ -76,9 +96,9 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-	try:
-		instance.profile.save()
-	except Exception:
-		Profile.objects.create(user=instance)
+#@receiver(post_save, sender=User)
+#def save_user_profile(sender, instance, **kwargs):
+#	try:
+#		instance.profile.save()
+#	except Exception:
+#		Profile.objects.create(user=instance)

@@ -25,15 +25,12 @@ def overview(request):
 def summary(request,company):
     template = loader.get_template('ami/summary.html')
     if company=="0":
-        company=request.user.profile.company.name
-    profileList=Profile.objects.filter(company=company).order_by('room')
-    roomList=[]
-    distinct=[]
-    for profile in profileList:
-        if profile.room and profile.room not in distinct:
-            roomList.append(profile)
-            distinct.append(profile.room)
-    inspectionList=[]
+        try:
+            company=request.user.profile.company.name
+        except Exception:
+            messages.error(request, 'Please update your company information.')
+            return redirect('/settings/')
+    roomList=Room.objects.filter(company=company).order_by('room')
     for room in roomList:
         inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room.room)
         if inspection:
@@ -92,8 +89,12 @@ def inspection(request):
 def myRoom(request,barracks,room):
     template = loader.get_template('ami/room.html')
     if barracks == "myroom" and room == 0000:
-        barracks = request.user.profile.barracks.name
-        room = request.user.profile.room
+        try:
+            home = request.user.profile.barracks.name
+            room = request.user.profile.room
+        except Exception:
+            messages.error(request, 'Please update your barracks and room information.')
+            return redirect('/settings/')
     inspections = Inspection.objects.filter(barracks=barracks,room=room).order_by("-date")
     inspectionList = []
     for inspection in inspections:
@@ -121,7 +122,10 @@ def settings(request):
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
+            #try:
             profile_form.save()
+            #except:
+                #Room.objects.create(number=profile_form.room,company=company)
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/')
         else:

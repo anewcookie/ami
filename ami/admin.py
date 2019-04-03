@@ -10,6 +10,7 @@ from .models import Checklist
 from .models import GigChoice
 from .models import Company
 from .models import Type
+from .models import Room
 
 admin.site.register(Profile)
 admin.site.register(Inspection)
@@ -19,3 +20,4 @@ admin.site.register(Checklist)
 admin.site.register(GigChoice)
 admin.site.register(Company)
 admin.site.register(Type)
+admin.site.register(Room)
