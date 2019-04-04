@@ -114,22 +114,26 @@ def subordinates(request):
 def settings(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
+        room_form = RoomForm(request.POST)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and room_form.is_valid():
             user_form.save()
-            #try:
             profile_form.save()
-            #except:
-                #Room.objects.create(number=profile_form.room,company=company)
+            newRoom = Room.objects.get_or_create(number=room_form.cleaned_data['number'],barracks=room_form.cleaned_data['barracks'])
+            request.user.profile.room = newRoom[0]
+            request.user.profile.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         user_form = UserForm(instance=request.user)
+        roomInfo = request.user.profile.room.number
+        room_form = RoomForm(initial={'number': request.user.profile.room.number, 'barracks': request.user.profile.room.barracks})
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'ami/settings.html', {
         'user_form': user_form,
+        'room_form': room_form,
         'profile_form': profile_form
     })
 
