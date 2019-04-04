@@ -20,7 +20,14 @@
 
  {% for room in roomList %}
      <div style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
-        <a href="/room/{{room}}"> {{room.number}}</a>
+        <a href="/room/{{room}}"> 
+        <span>{{room.number}} - </span>
+        {% for profile in room.occupants %}
+        <span> {{profile.user.last_name}}, </span>
+        {% endfor %}
+        
+        
+        </a>
      </div>
  {%endfor%}
  

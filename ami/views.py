@@ -35,6 +35,8 @@ def summary(request,company):
     for profile in profileList:
         roomList.add(profile.room)
     for room in roomList:
+        room.occupants=Profile.objects.filter(room=room)
+        print(room.occupants)
         inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room)
         if inspection:
             room.status=inspection[0].status
@@ -128,8 +130,11 @@ def settings(request):
             messages.error(request, 'Please correct the error below.')
     else:
         user_form = UserForm(instance=request.user)
-        roomInfo = request.user.profile.room.number
-        room_form = RoomForm(initial={'number': request.user.profile.room.number, 'barracks': request.user.profile.room.barracks})
+        if request.user.profile.room:
+            roomInfo = request.user.profile.room.number
+            room_form = RoomForm(initial={'number': request.user.profile.room.number, 'barracks': request.user.profile.room.barracks})
+        else:
+            room_form = RoomForm()
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'ami/settings.html', {
         'user_form': user_form,
