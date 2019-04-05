@@ -9,8 +9,8 @@
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5>
   </header>
-    
-    <h4>Select Company: 
+
+    <h4>Select Company:
     <select name="company" onchange="(window.location = '/summary/' + this.options[this.selectedIndex].value);">
         {% for company in companyList %}
             <option value={{ company.name }} {%if company.name == home%} selected {%endif%}> {{company.name}}</option>
@@ -19,18 +19,18 @@
     </h4>
 
  {% for room in roomList %}
-     <div class="w3-hover-shadow w3-center" style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
-        <a href="/room/{{room}}"> 
+     <div class="w3-hover-shadow w3-center" style="font-family:'Comic Sans MS';margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
+        <a href="/room/{{room}}">
         <span>{{room.number}} - </span>
         {% for profile in room.occupants %}
         <span> {{profile.user.last_name}}, </span>
         {% endfor %}
-        
-        
+
+
         </a>
      </div>
  {%endfor%}
- 
+
  <div class="w3-panel w3-pale-green w3-leftbar w3-border-green" style='width:25%;margin:0px'>
  <p> Pass </p>
  </div>
