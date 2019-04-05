@@ -19,7 +19,7 @@
     </h4>
 
  {% for room in roomList %}
-     <div style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
+     <div class="w3-hover-shadow w3-center" style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
         <a href="/room/{{room}}"> 
         <span>{{room.number}} - </span>
         {% for profile in room.occupants %}
