@@ -46,13 +46,17 @@
       <div>
         <h5>Checklist</h5>
         <div>
+            <input class="w3-check" type="checkbox" name='desc' onchange="descChange()">
+			<label>Show Descriptions</label>
+		</div>
+        <div>
 			{% for type in typeList %}
 			  <p class="w3-white">{{ type.name }} </p>
 			  {% for gig in gigList %}
 			    {% if gig.type == type %}
 					<div>
 					<input class="w3-check" type="checkbox" class="gig" name='{{ gig.gigName }}' onchange="statusChange()">
-					<label>{{gig.gigName}}: {{ gig.gigDesc }}</label>
+					<label>{{gig.gigName}}: <span class='descObject'>{{ gig.gigDesc }}</span></label>
 					</div>
 				{% endif %}
 			  {% endfor %}
@@ -115,5 +119,19 @@ function changePMI() {
         statusChange();
     }    
 }
+function descChange() {
+    option = document.forms["inspection"]["desc"];
+    objects = document.getElementsByClassName('descObject');
+    if (option.checked == true) {
+        for (var i = 0; i < bars.length; i++)  {
+            objects[i].style.display='none';
+        }
+    }else{
+        for (var i = 0; i < bars.length; i++)  {
+            objects[i].style.display='inline';
+        }
+    }    
+}
+alert('started')
 changePMI()
  </script>
