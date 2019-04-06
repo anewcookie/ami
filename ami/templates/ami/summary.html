@@ -6,8 +6,28 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
   <!-- Header -->
-  <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5>
+  <header class="w3-container w3-row" style="padding-top:22px">
+    <div class="w3-col s3"><h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5></div>
+ <div class="w3-col s2">
+ <div class="w3-panel w3-pale-green w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-green w3-center" style='width:95%;margin:0px'>
+ <p> Pass </p>
+ </div>
+ </div>
+ <div class="w3-col s2">
+ <div class="w3-panel w3-pale-red w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-red w3-center" style='width:95%;margin:0px'>
+ <p> Fail </p>
+ </div>
+ </div>
+ <div class="w3-col s2">
+ <div class="w3-panel w3-pale-blue w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-blue w3-center" style='width:95%;margin:0px'>
+ <p> PMI </p>
+ </div>
+ </div>
+ <div class="w3-col s2">
+ <div class="w3-panel w3-white w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-grey w3-center" style='width:95%;margin:0px'>
+ <p> Not Inspected </p>
+ </div>
+ </div>
   </header>
     
     <h4>Select Company: 
@@ -18,10 +38,11 @@
     </select>
     </h4>
 
+
  {% for room in roomList %}
-     <div class="w3-hover-shadow w3-center" style="margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
+     <div class="w3-hover-shadow" style="width:25%; font-family:'Comic Sans MS'; margin:5px;">
         <a href="/room/{{room}}"> 
-        <span>{{room.number}} - </span>
+        <span class="w3-badge w3-text-black" style="background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">{{room.number}} </span>
         {% for profile in room.occupants %}
         <span> {{profile.user.last_name}}, </span>
         {% endfor %}
@@ -30,16 +51,3 @@
         </a>
      </div>
  {%endfor%}
- 
- <div class="w3-panel w3-pale-green w3-leftbar w3-border-green" style='width:25%;margin:0px'>
- <p> Pass </p>
- </div>
- <div class="w3-panel w3-pale-red w3-leftbar w3-border-red" style='width:25%;margin:0px'>
- <p> Fail </p>
- </div>
- <div class="w3-panel w3-pale-blue w3-leftbar w3-border-blue" style='width:25%;margin:0px'>
- <p> PMI </p>
- </div>
- <div class="w3-panel w3-white w3-leftbar w3-border-grey" style='width:25%;margin:0px'>
- <p> Not Inspected </p>
- </div>
