@@ -29,8 +29,8 @@
  </div>
  </div>
   </header>
-
-    <h4>Select Company:
+    
+    <h4>Select Company: 
     <select name="company" onchange="(window.location = '/summary/' + this.options[this.selectedIndex].value);">
         {% for company in companyList %}
             <option value={{ company.name }} {%if company.name == home%} selected {%endif%}> {{company.name}}</option>
@@ -40,30 +40,14 @@
 
 
  {% for room in roomList %}
-
-     <div class="w3-hover-shadow w3-center" style="font-family:'Comic Sans MS';margin:5px; background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">
-        <a href="/room/{{room}}">
-        <span>{{room.number}} - </span>
      <div class="w3-hover-shadow" style="width:25%; font-family:'Comic Sans MS'; margin:5px;">
         <a href="/room/{{room}}"> 
         <span class="w3-badge w3-text-black" style="background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">{{room.number}} </span>
         {% for profile in room.occupants %}
         <span> {{profile.user.last_name}}, </span>
         {% endfor %}
- {% endfor %}
-
+        
+        
         </a>
      </div>
-
- <div class="w3-panel w3-pale-green w3-leftbar w3-border-green" style='width:25%;margin:0px'>
- <p> Pass </p>
- </div>
- <div class="w3-panel w3-pale-red w3-leftbar w3-border-red" style='width:25%;margin:0px'>
- <p> Fail </p>
- </div>
- <div class="w3-panel w3-pale-blue w3-leftbar w3-border-blue" style='width:25%;margin:0px'>
- <p> PMI </p>
- </div>
- <div class="w3-panel w3-white w3-leftbar w3-border-grey" style='width:25%;margin:0px'>
- <p> Not Inspected </p>
- </div>
+ {%endfor%}
