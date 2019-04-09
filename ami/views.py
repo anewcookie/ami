@@ -57,10 +57,9 @@ def inspection(request):
         date = datetime.datetime.now().date()
         room = Room.objects.get(barracks__name=form['barracks'], number=form['room'])
         status = form['finalStatus']
-        gigs = form['gigNumber']
         inspector = request.user
         notes = form['notes']
-        i = Inspection(date=date,room=room,status=status,gigs=gigs,inspector=inspector,notes=notes)
+        i = Inspection(date=date,room=room,status=status,inspector=inspector,notes=notes)
         i.save() 
         for key in form:
             if form[key] == "on":

@@ -5,22 +5,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 
-numUnits = (
-	(1,1),
-	(2,2),
-	(3,3),
-	(4,4)
-)
 
-levels = (
-	('Team','Team'),
-	('Squad','Squad'),
-	('Platoon','Platoon'),
-	('Company','Company'),
-	('Battalion','Battalion'),
-	('Regiment','Regiment'),
-	('Brigade','Brigade'),
-)
 
 statuses = (
 	('Pass','Pass'),
@@ -29,6 +14,12 @@ statuses = (
 )
 
 class Profile(models.Model):
+    numUnits = (
+        (1,1),
+        (2,2),
+        (3,3),
+        (4,4)
+    )
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     room = models.ForeignKey('Room',blank=True,null=True,on_delete=models.SET_NULL)
     squad = models.PositiveSmallIntegerField(choices=numUnits,blank=True,null=True)
@@ -39,16 +30,22 @@ class Profile(models.Model):
         return str(self.user)
         	
 class Inspection(models.Model):
+    statuses = (
+        ('Pass','Pass'),
+        ('Fail','Fail'),
+        ('PMI','PMI')
+    )
     date = models.DateField()
     room = models.ForeignKey('Room',blank=True,null=True,on_delete=models.SET_NULL)
-    barracks = models.ForeignKey('Barracks',blank=True,null=True,on_delete=models.SET_NULL)
     status = models.CharField(max_length=5,choices=statuses)
-    gigs = models.IntegerField()
     choices = models.ManyToManyField('GigChoice',blank=True,null=True)
     inspector = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     notes = models.CharField(max_length=200,blank=True,null=True)
     def __str__(self):
         return str(str(self.date) + " - " + str(self.room))
+    def gigs(self):
+        num=self.choices.count()
+        return(num)
         
 class GigChoice(models.Model):
     gigName = models.CharField(max_length=100)
@@ -58,6 +55,15 @@ class GigChoice(models.Model):
         return str(self.gigName)
     
 class Position(models.Model):
+    levels = (
+        ('Team','Team'),
+        ('Squad','Squad'),
+        ('Platoon','Platoon'),
+        ('Company','Company'),
+        ('Battalion','Battalion'),
+        ('Regiment','Regiment'),
+        ('Brigade','Brigade'),
+    )
     position = models.CharField(max_length=50)
     leadershipLevel= models.CharField(max_length=50, choices = levels,blank=True,null=True)
     def __str__(self):
