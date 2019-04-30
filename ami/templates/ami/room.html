@@ -7,77 +7,69 @@
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-{% if messages %}
+  {% if messages %}
     {% for message in messages %}
-        <div class="w3-panel w3-green w3-card-4">{{ message }}</div>
+      <div class="w3-panel w3-green w3-card-4">{{ message }}</div>
     {% endfor %}
-{% endif %}
-    <h5><b><i class="fa fa-user"></i> {{barracks}} {{room}}</b></h5>
+  {% endif %}
+  <h5><b><i class="fa fa-user"></i> {{barracks}} {{room}}</b></h5>
   </header>  
 
 <!-- Project Section -->
-{% if inspectionList %}
+  {% if inspectionList %}
   <div class="w3-container" id="projects">
     <h3>Recent Inspections:</h3>
   </div>
   <div class="w3-row-padding">
     {% for inspection in inspectionList %}
-
-        <div class="w3-col l3 m6 w3-margin-bottom ">
-          <div class="w3-display-container w3-card-4" onclick="document.getElementById('{{inspection.id}}').style.display='block'">
-            <div class="w3-display-topleft w3-black w3-padding">{{inspection.date}}</div>
-              <div class="inspection-card {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}">
-                  
-                  <div class="w3-display-middle w3-opacity">
-                  <h1><b>{{inspection.status}}</b></h1>
-                  </div>
-                  <div class="w3-display-bottomleft w3-black w3-padding">
-                  Inspector: CDT {{inspection.inspector.last_name}}
-                  </div>
-                  
-                  <div class="w3-display-bottomright w3-black w3-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom ">
+      <div class="w3-display-container w3-card-4" onclick="document.getElementById('{{inspection.id}}').style.display='block'">
+        <div class="w3-display-topleft w3-black w3-padding">{{inspection.date}}
+		</div>
+        <div class="inspection-card {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}">
+          <div class="w3-display-middle w3-opacity">
+            <h1><b>{{inspection.status}}</b></h1>
+          </div>
+          <div class="w3-display-bottomleft w3-black w3-padding">
+            Inspector: CDT {{inspection.inspector.last_name}}
+          </div>
+          <div class="w3-display-bottomright w3-black w3-padding">
                   Gigs: {{inspection.gigs}}
-                  </div>
-
-              </div>
           </div>
-        </div>
-     
-        
 
-        
-
-    {%endfor%}
-   </div>  
-{% else %}
-    <h3>No Recent Inspections</h3>
-{% endif %}
-
-{% for inspection in inspectionList %}
-    <div id="{{inspection.id}}" class="w3-modal">
-        <div class="w3-modal-content w3-card-4">
-          <header class="w3-container {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}"> 
-            <span onclick="document.getElementById('{{inspection.id}}').style.display='none'" 
-            class="w3-button w3-display-topright">&times;</span>
-            <h2 class="w3-center w3-opacity"> {{inspection.date}}</h2>
-          </header>
-          <div class="w3-container">
-            <p><b>Inspector:</b> CDT {{inspection.inspector.last_name}}</p>
-            
-               {% if inspection.choices %}
-                   <p><b>Reported gigs:</b></p>
-                   {% for gig in inspection.choices.all %}
-                        <p>{{gig.gigName}}: {{gig.gigDesc}}</p>
-                    {%endfor%}
-                {%else%}
-                    <p>No gigs reported</p>
-                {%endif%}
-            <p><b>Notes:</b> {{inspection.notes}}</p>
-          </div>
-          <footer class="w3-container {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}">
-            <h2 class="w3-center w3-opacity">{{inspection.status}}</h2>
-          </footer>
         </div>
       </div>
     </div>
-{%endfor%}
+    {%endfor%}
+  </div>  
+  {% else %}
+  <h3>No Recent Inspections</h3>
+  {% endif %}
+
+  {% for inspection in inspectionList %}
+  <div id="{{inspection.id}}" class="w3-modal">
+    <div class="w3-modal-content w3-card-4">
+      <header class="w3-container {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}"> 
+        <span onclick="document.getElementById('{{inspection.id}}').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+        <h2 class="w3-center w3-opacity"> {{inspection.date}}</h2>
+      </header>
+      <div class="w3-container">
+        <p><b>Inspector:</b> CDT {{inspection.inspector.last_name}}</p>
+        {% if inspection.choices %}
+        <p><b>Reported gigs:</b>
+        {% for gig in inspection.choices.all %}
+        <p>{{gig.gigName}}: {{gig.gigDesc}}
+        {%endfor%}
+        {%else%}
+        <p>No gigs reported
+        {%endif%}
+        <p><b>Notes:</b> {{inspection.notes}}
+      </div>
+          <footer class="w3-container {%if inspection.status == 'Pass'%} w3-pale-green {%elif inspection.status == 'Fail'%} w3-pale-red{%else%} w3-pale-blue{%endif%}">
+            <h2 class="w3-center w3-opacity">{{inspection.status}}</h2>
+          </footer>
+    </div>
+  </div>
+  {%endfor%}
+</div>
