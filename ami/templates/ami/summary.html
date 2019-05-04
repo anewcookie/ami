@@ -30,9 +30,9 @@
   </select>
   </h4>
   {% for room in roomList %}
-  <div class=" w3-hover-shadow w3-xxlarge" style="box-sizing:content-box; font-family:'Comic Sans MS'; margin:5px;">
+  <div class=" w3-hover-shadow w3-xxlarge" id="r" style="box-sizing:content-box; font-family:'Comic Sans MS'; margin:5px;">
     <a href="/room/{{room}}"> 
-    <span class="w3-badge w3-text-black" style="background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">{{room.number}} </span>
+    <span class="w3-badge w3-text-black" id="s" style="background-color:{%if room.status == 'Pass'%}green{%elif room.status == 'Fail'%}red{%elif room.status == 'PMI'%}aqua{%else%}white{%endif%};">{{room.number}} </span>
     {% for profile in room.occupants %}
     <span> {{profile.user.last_name}}, </span>
     {% endfor %}
