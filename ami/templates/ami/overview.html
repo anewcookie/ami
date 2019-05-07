@@ -1,16 +1,14 @@
-{% load static %}
-
 {% include 'ami/core.html' %}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-{% if messages %}
+  {% if messages %}
     {% for message in messages %}
-        <div class="w3-panel w3-green w3-card-4">{{ message }}</div>
+    <div class="w3-panel w3-green w3-card-4">{{ message }}</div>
     {% endfor %}
-{% endif %}
-    <h5><b><i class="fa fa-dashboard"></i> Overview</b></h5>
+  {% endif %}
+  <h5><b><i class="fa fa-dashboard"></i> Overview</b></h5>
   </header>
-    <img src="/static/ami/images/academy.jpg"style="width:100%">
+  <img src="/static/ami/images/academy.jpg" style="width:100%">

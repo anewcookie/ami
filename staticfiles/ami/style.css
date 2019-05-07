@@ -1,0 +1,104 @@
+header {
+    padding-top: 22px;
+}
+
+.inspection-card {
+   width: 100%; 
+   height: 200px;   
+}
+
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Raleway", sans-serif;
+}
+
+#c {
+	z-index: 4;
+}
+
+#mySidebar {
+	z-index: 3;
+	width: 300px;
+}
+
+#d {
+	width: 46px;
+}
+
+#e {
+	color: #b4b4b4;
+}
+
+#myOverlay {
+	cursor: pointer;
+}
+
+#f {
+	margin-left: 300px;
+	margin-top: 43px;
+}
+
+#picmg {
+	width: 100%;
+}
+
+#g {
+	padding-top: 22px;
+}
+
+#AMIdesc {
+	margin-bottom: 0;
+}
+
+#PMIdesc {
+	margin-top: 0; 
+	color: #b4b4b4;
+}
+
+#j {
+	background-color: lightgreen;
+}
+
+#k {
+	margin-right: 30px;
+}
+
+#m {
+	margin-left: 20;
+}
+
+#n {
+    width: 200px;
+}
+
+#o {
+	margin-top: 10px; 
+	background-color: lightgreen;
+}
+
+#q {
+	margin-left: 20;
+}
+
+#r {
+	box-sizing: content-box; 
+	font-family: 'Comic Sans MS'; 
+	margin: 5px;
+}
+
+#t {
+	margin-left: 300px;
+	margin-top: 43px;
+}
+
+#u {
+	
+}
+
+#v {
+	width: 95%;
+	margin: 0px;
+}
+
+#w {
+	
+}

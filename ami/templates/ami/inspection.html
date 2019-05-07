@@ -14,54 +14,57 @@
     <form name="inspection" method=post>
 	{% csrf_token %}
       <div>
-        <h4>Options</h5>
-		<div class="w3-third">Barracks:
-			<select name="barracks" value="{{home}}">
-				{% for barracks in barracksList %}
-					<option value={{ barracks.name }} {%if barracks.name == home%} selected {%endif%}> {{barracks.name}}</option>
-				{% endfor %}
-			</select>
+      <h5>Options</h5>
+	    <div class="w3-third">Barracks:
+		  <select name="barracks" value="{{home}}">
+		  {% for barracks in barracksList %}
+		  <option value={{ barracks.name }} {%if barracks.name == home%} selected {%endif%}> {{barracks.name}}
+		  {% endfor %}
+		  </select>
 		</div>
-		<div class="w3-third">Room:
-			<input name="room" type="number" required>
+	    <div class="w3-third">Room:
+		  <input name="room" type="number" required>
 		</div>
 		<div>PMI:
-			<select name="PMI" onchange="changePMI()">
-				<option value="No"> No</option>
-				<option value="Yes"> Yes</option>
-			</select>
+		  <select name="PMI" onchange="changePMI()">
+		  <option value="No"> No
+		  <option value="Yes"> Yes
+		  </select>
 		</div>
 		<div>
-		<p id=AMIdesc style="margin-bottom:0">AMI = Entire sheet met with no more than three gigs.</p>
-		<p id=PMIdesc style="margin-top:0; color:#b4b4b4">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.</p>
+		  <p id=AMIdesc style="margin-bottom:0">AMI = Entire sheet met with no more than three gigs.
+		  <p id=PMIdesc style="margin-top:0; color:#b4b4b4">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.
 		</div>
 		<div class="statusBar w3-center" class=w3-center style="background-color:lightgreen">
-		Gigs: <span style="margin-right:30px" class=gigs>0</span>
-		Status: <span class=status>Passing</span>
-		<input style="margin-left:20" type="submit" value="Submit Inspection">
+		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
+		  Status: <span class=status>Passing</span>
+		  <input style="margin-left:20" type="submit" value="Submit Inspection">
 		</div>
-		
 	  </div>
-
       <div>
         <h5>Checklist</h5>
         <div>
-            <input class="w3-check" type="checkbox" name='desc' onchange="descChange()">
-			<label>Show Descriptions</label>
+          <input class="w3-check" type="checkbox" name='desc' onchange="descChange()">
+		  <label>Show Descriptions</label>
 		</div>
         <div>
-			{% for type in typeList %}
-			  <p class="w3-white">{{ type.name }} </p>
-			  {% for gig in gigList %}
-			    {% if gig.type == type %}
-					<div>
-					<input class="w3-check" type="checkbox" class="gig" name='{{ gig.gigName }}' onchange="statusChange()">
-					<label>{{gig.gigName}}: <span class='descObject'>{{ gig.gigDesc }}</span></label>
-					</div>
-				{% endif %}
-			  {% endfor %}
-			{% endfor %}
-            <div><p class="w3-white">Notes </p> <input name=notes class="w3-input w3-animate-input" type="text" style="width:200px"></div>
+		{% for type in typeList %}
+	      <p class="w3-white">{{ type.name }} </p>
+		  {% for gig in gigList %}
+		  {% if gig.type == type %}
+		  <div>
+		    <input class="w3-check" type="checkbox" class="gig" name='{{ gig.gigName }}' onchange="statusChange()">
+			<label>{{gig.gigName}}: 
+			  <span class='descObject'>{{ gig.gigDesc }}</span>
+			</label>
+		  </div>
+		  {% endif %}
+		  {% endfor %}
+		  {% endfor %}
+          <div>
+		    <p class="w3-white">Notes </p> 
+			<input name=notes class="w3-input w3-animate-input" type="text" style="width:200px">
+		  </div>
         </div>
 	    <div class="statusBar w3-center" style="margin-top:10px; background-color:lightgreen">
 		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
@@ -72,65 +75,5 @@
 		<input name="gigNumber" id="gigNumber" value=0 hidden>
       </div>
     </form>
-  </div>
  </div>
- 
- <script>
-function statusChange() {
-    bars = document.getElementsByClassName('statusBar');
-    statusText = document.getElementsByClassName('status');
-	gigsText = document.getElementsByClassName('gigs');
-    PMI = document.forms["inspection"]["PMI"].value;
-	gigs = document.querySelectorAll('input[type="checkbox"]:checked').length
-    if (gigs >= 4) {
-        for (var i = 0; i < bars.length; i++)  {
-            bars[i].style.backgroundColor="red";
-			gigsText[i].textContent=gigs;
-            statusText[i].textContent="Failing";
-        }
-		document.getElementById("finalStatus").value = "Fail";
-		document.getElementById("gigNumber").value = gigs;
-    }else{
-        for (var i = 0; i < bars.length; i++)  {
-			gigsText[i].textContent=gigs;
-			document.getElementById("gigNumber").value = gigs;
-            if (PMI.includes("Yes")) {
-                bars[i].style.backgroundColor="lightblue";
-                statusText[i].textContent="PMI";
-				document.getElementById("finalStatus").value = "PMI";
-            }else{
-                bars[i].style.backgroundColor="lightgreen";
-                statusText[i].textContent="Passing";
-				document.getElementById("finalStatus").value = "Pass";
-            }          
-        }
-    }
-}
-
-function changePMI() {
-    PMI = document.forms["inspection"]["PMI"].value;
-    if (PMI.includes("Yes")) {
-        document.getElementById('PMIdesc').style.color="black";
-        document.getElementById('AMIdesc').style.color="#b4b4b4";
-        statusChange();
-    }else{
-        document.getElementById('PMIdesc').style.color="#b4b4b4";
-        document.getElementById('AMIdesc').style.color="black";
-        statusChange();
-    }    
-}
-function descChange() {
-    option = document.forms["inspection"]["desc"];
-    objects = document.getElementsByClassName('descObject');
-    if (option.checked == true) {
-        for (var i = 0; i < bars.length; i++)  {
-            objects[i].style.display='none';
-        }
-    }else{
-        for (var i = 0; i < bars.length; i++)  {
-            objects[i].style.display='inline';
-        }
-    }    
-}
-changePMI()
- </script>
+</div>
