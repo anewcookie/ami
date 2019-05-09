@@ -2,11 +2,11 @@
 
 ## OVERVIEW:
 This website serves to digitalize AMI inspections. It consists of the following functions:
-•	Use a digital checklist to check off a room
-•	Store inspections in a database
-•	View a company summary of what rooms have been inspected so far each day
-•	View any rooms AMI history in detail
-•	[DEMO VIDEO (youtube.com "Cadet AMI application demo")]
+-	Use a digital checklist to check off a room
+-	Store inspections in a database
+-	View a company summary of what rooms have been inspected so far each day
+-	View any rooms AMI history in detail
+-	[DEMO VIDEO](youtube.com "Cadet AMI application demo")
 
 ## ARCHITECTURE:
 
@@ -60,10 +60,10 @@ This website serves to digitalize AMI inspections. It consists of the following 
         - password_reset_form.html : this page allows the user to request a password reset by entering their email
         
 ## TESTING
-[Click here to view tests.py where the Django test cases were implemented] (https://github.com/anewcookie/ami/blob/master/ami/tests.py "tests.py")
+[Click here to view tests.py where the Django test cases were implemented](https://github.com/anewcookie/ami/blob/master/ami/tests.py "tests.py")
 
 ## USER FEEDBACK
-[User feedback Summary (google.com "User Feedback")]
+[User feedback Summary(google.com "User Feedback")]
 
 ## KNOWN ISSUES
 1. There is no way for users to delete inspections. The only way currently is through the admin page
