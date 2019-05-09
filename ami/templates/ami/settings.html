@@ -13,6 +13,7 @@
   {% endif %}
     <h5><b><i class="fa fa-dashboard"></i>Settings</b></h5>
   </header>
+  <!-- This form is for User, Room, and Profile data -->
   <form method="post">
     {% csrf_token %}
     {{ user_form.as_p }}

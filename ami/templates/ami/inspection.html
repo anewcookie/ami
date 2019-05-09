@@ -14,6 +14,7 @@
     <form name="inspection" method=post>
 	{% csrf_token %}
       <div>
+      <!-- Options section -->
       <h5>Options</h5>
 	    <div class="w3-third">Barracks:
 		  <select name="barracks" value="{{home}}">
@@ -31,10 +32,12 @@
 		  <option value="Yes"> Yes
 		  </select>
 		</div>
+        <!-- This section shows the inspection instructions dependent on whether it is AMI ro PMI -->
 		<div>
 		  <p id=AMIdesc style="margin-bottom:0">AMI = Entire sheet met with no more than three gigs.
 		  <p id=PMIdesc style="margin-top:0; color:#b4b4b4">PMI = AMI Standard with sink stopper up, door closed, and bedding unfolded only if sleeping on bed with signed PMI card.
 		</div>
+        <!-- This bar shows the current number of Gigs and the status. It is automatically updated whenever gigs are checked off -->
 		<div class="statusBar w3-center" class=w3-center style="background-color:lightgreen">
 		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
 		  Status: <span class=status>Passing</span>
@@ -42,6 +45,7 @@
 		</div>
 	  </div>
       <div>
+        <!-- The checklist section -->
         <h5>Checklist</h5>
         <div>
           <input class="w3-check" type="checkbox" name='desc' onchange="descChange()">
@@ -66,6 +70,7 @@
 			<input name=notes class="w3-input w3-animate-input" type="text" style="width:200px">
 		  </div>
         </div>
+        <!-- This section also shows the current gig number and status -->
 	    <div class="statusBar w3-center" style="margin-top:10px; background-color:lightgreen">
 		  Gigs: <span style="margin-right:30px" class=gigs>0</span>
 		  Status: <span class=status>Passing</span>

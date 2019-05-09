@@ -14,6 +14,8 @@ import datetime
 
 # Create your views here.
 
+#The overview view shows a background picture.
+#This is the home/landing page for the website.
 def overview(request):
     template = loader.get_template('ami/overview.html')
     context = {
@@ -21,6 +23,7 @@ def overview(request):
        }
     return HttpResponse(template.render(context, request))	
 
+#The summary page shows the status of rooms by company.
 @login_required
 def summary(request,company):
     template = loader.get_template('ami/summary.html')
@@ -48,7 +51,9 @@ def summary(request,company):
         'roomList': roomList,
        }
     return HttpResponse(template.render(context, request))	    
-    
+
+
+#The inspection page allows users to inspect rooms. 
 @login_required
 def inspection(request):
     if request.method == 'POST':
@@ -88,7 +93,8 @@ def inspection(request):
         'home':home,
        }
     return HttpResponse(template.render(context, request))	
-	
+
+#The myRoom page shows the history of a room.
 @login_required
 def myRoom(request,room):
     template = loader.get_template('ami/room.html')
@@ -105,11 +111,13 @@ def myRoom(request,room):
        }
     return HttpResponse(template.render(context, request))	
 
-	
+#This view has not been set, but is here for future website development.
+#The idea behind this view was to show a User his subordinates' room status and history.
 @login_required
 def subordinates(request):
 	pass
 
+#The settings view is used to change a user's User, Room, and Profile information
 @login_required
 @transaction.atomic
 def settings(request):
@@ -141,7 +149,7 @@ def settings(request):
         'profile_form': profile_form
     })
 
-
+#The signup page allows new users to sign up for accounts.
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
