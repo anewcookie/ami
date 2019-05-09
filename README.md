@@ -1,13 +1,14 @@
 # ami
 
-##OVERVIEW:
+## OVERVIEW:
 This website serves to digitalize AMI inspections. It consists of the following functions:
 •	Use a digital checklist to check off a room
 •	Store inspections in a database
 •	View a company summary of what rooms have been inspected so far each day
 •	View any rooms AMI history in detail
+•	[DEMO VIDEO (youtube.com "Cadet AMI application demo")]
 
-##ARCHITECTURE:
+## ARCHITECTURE:
 
 - ami
     - __pycache__ : folder includes auto generated files
@@ -58,13 +59,16 @@ This website serves to digitalize AMI inspections. It consists of the following 
         - password_reset_done.htmml : page shown after user has submitted a password reset request, asking them to check their email to confirm
         - password_reset_form.html : this page allows the user to request a password reset by entering their email
         
-##TESTING
+## TESTING
+[Click here to view tests.py where the Django test cases were implemented] (https://github.com/anewcookie/ami/blob/master/ami/tests.py "tests.py")
 
+## USER FEEDBACK
+[User feedback Summary (google.com "User Feedback")]
 
-##KNOWN ISSUES
+## KNOWN ISSUES
 1. There is no way for users to delete inspections. The only way currently is through the admin page
 
-##RECOMMENDED IMPROVEMENTS
+## RECOMMENDED IMPROVEMENTS
 1. The "Subordinates" page was never implemented. The idea behind this was to allow cadets to quickly view their subordinates AMI status and history. This could be implemented using  the already implemented Position and Inspection models.
 
 2. It would not take much to adapt the Inspection model to support a SAMI inspection
@@ -74,7 +78,7 @@ This website serves to digitalize AMI inspections. It consists of the following 
 4. Instead of just an image for the home page, it could show information that would be useful at a glance. Perhaps important status updates about the user's room and/or company.
 
 
-##LINKS TO REDEPLOY APPLICATION
+## LINKS TO REDEPLOY APPLICATION
 https://dashboard.heroku.com/apps/cadet-ami/deploy/heroku-git
 
 
