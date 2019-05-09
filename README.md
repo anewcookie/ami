@@ -69,7 +69,7 @@ This website serves to digitalize AMI inspections. It consists of the following 
 
 2. It would not take much to adapt the Inspection model to support a SAMI inspection
 
-3. Adding functionality to allow authorized cadets to delete inspecitons would be very useful.
+3. Adding functionality to allow authorized cadets to delete inspections would be very useful.
 
 4. Instead of just an image for the home page, it could show information that would be useful at a glance. Perhaps important status updates about the user's room and/or company.
 
