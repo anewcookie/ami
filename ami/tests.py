@@ -19,7 +19,7 @@ macUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KH
         " Version/9.0.2 Safari/601.3.9"
 windowsUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " \
             "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
-
+undefUA = ""
 
 # tests that Django template language is rendering all pages successfully
 class TestAllPages(TestCase):
@@ -102,7 +102,7 @@ class TestSubordinates(TestCase):
         r2 = self.client.get('/accounts/login/?next=/summary/0/#')
         self.assertEqual(r2.status_code, r1.status_code)
         if r2.status_code == 200:
-            print("******The subordinates link does not redirect to an unknown page.")
+            print("******Great! The subordinates link does not redirect to an unknown page.")
 
 
 # test Mobile browsers by attempting to create an instance and login
@@ -115,7 +115,6 @@ class TestCommonUserAgents(TestCase):
     def test_iphone(self):
         # is truly an iphone
         request = RequestFactory(HTTP_USER_AGENT=iphoneUA).get('')
-
         self.assertTrue(user_agents.is_mobile(request))
         self.assertTrue(user_agents.is_touch_capable(request))
         self.assertFalse(user_agents.is_tablet(request))
@@ -124,7 +123,7 @@ class TestCommonUserAgents(TestCase):
 
         # test that you can login on iPhone
         # use a link that requires auth
-        response = self.client.get('/accounts/login/?next=/summary/0/')
+        response = self.client.get('/accounts/login/?next=/summary/0/', environ_base={'HTTP_USER_AGENT': iphoneUA})
         self.assertEqual(response.status_code, 200)
         print("******Attempted iPhone UA login successful.")
 
@@ -140,7 +139,7 @@ class TestCommonUserAgents(TestCase):
 
         # test that you can login on Android
         # use a link that requires auth
-        response = self.client.get('/accounts/login/?next=/summary/0/')
+        response = self.client.get('/accounts/login/?next=/summary/0/', environ_base={'HTTP_USER_AGENT': androidUA})
         self.assertEqual(response.status_code, 200)
         print("******Attempted Android UA login successful.")
 
@@ -156,7 +155,7 @@ class TestCommonUserAgents(TestCase):
 
         # test that you can login on Mac PC
         # use a link that requires auth
-        response = self.client.get('/accounts/login/?next=/summary/0/')
+        response = self.client.get('/accounts/login/?next=/summary/0/', environ_base={'HTTP_USER_AGENT': macUA})
         self.assertEqual(response.status_code, 200)
         print("******Attempted Mac PC UA login successful.")
 
@@ -172,19 +171,20 @@ class TestCommonUserAgents(TestCase):
 
         # test that you can login on Windows PC
         # use a link that requires auth
-        response = self.client.get('/accounts/login/?next=/summary/0/')
+        response = self.client.get('/accounts/login/?next=/summary/0/', environ_base={'HTTP_USER_AGENT': windowsUA})
         self.assertEqual(response.status_code, 200)
         print("******Attempted Windows PC UA login successful.")
 
     def test_undefined(self):
         # empty UA returns an actual instance
-        request = RequestFactory().get('')
+        request = RequestFactory(HTTP_USER_AGENT=undefUA).get('')
+
         user_agent = get_user_agent(request)
         self.assertIsInstance(user_agent, UserAgent)
 
         # test that you can login on undefined UA
         # use a link that requires auth
-        response = self.client.get('/accounts/login/?next=/summary/0/')
+        response = self.client.get('/accounts/login/?next=/summary/0/', environ_base={'HTTP_USER_AGENT': undefUA})
         self.assertEqual(response.status_code, 200)
         print("******Attempted unknown UA login successful.")
 
