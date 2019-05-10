@@ -63,7 +63,7 @@ This website serves to digitalize AMI inspections. It consists of the following 
 [Click here to view tests.py where the Django test cases were implemented](https://github.com/anewcookie/ami/blob/master/ami/tests.py "tests.py")
 
 ## USER FEEDBACK
-[User feedback Summary](https://github.com/anewcookie/ami/blob/master/user_popularity.md "User Feedback")
+[User Feedback Summary](https://github.com/anewcookie/ami/blob/master/user_popularity.md "User Feedback")
 
 ## KNOWN ISSUES
 1. There is no way for users to delete inspections. The only way currently is through the admin page

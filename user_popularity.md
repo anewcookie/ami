@@ -1,14 +1,14 @@
 # User Popularity Review
 To gain an outlook on how leaders in the corps might interact with the Cadet AMI web application, we had 2 platoon sergeants and a squad leader interact with the app and answer a few questions. The information that we found is intriguing!
 
-## Participants(3 subjects):
+## Participants (3 subjects):
 - 2 Platoon Sergeants
 	- Sub1, Sub2
 - 1 Squad Leader    
 	- Sub3
 
 ## Feedback:
-### Do believe this application is useful?
+### Do you believe this application is useful?
 Sub3: Yes!
 
 ### Do the benefits outweigh the negatives, if any?
