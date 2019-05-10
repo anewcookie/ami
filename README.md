@@ -6,7 +6,7 @@ This website serves to digitalize AMI inspections. It consists of the following 
 -	Store inspections in a database
 -	View a company summary of what rooms have been inspected so far each day
 -	View any rooms AMI history in detail
--	[DEMO VIDEO](youtube.com "Cadet AMI application demo")
+-	[DEMO VIDEO](https://youtu.be/eYv55LN7DQI "Cadet AMI application demo")
 
 ## ARCHITECTURE:
 
