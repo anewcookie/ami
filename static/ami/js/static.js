@@ -26,8 +26,6 @@ function statusChange() {
    	statusText = document.getElementsByClassName('status');
 	gigsText = document.getElementsByClassName('gigs');
    	PMI = document.forms["inspection"]["PMI"].value;
-
-$('.theClass:checkbox:checked')
 	gigs = document.querySelectorAll('input[type="checkbox"][class="gig"]:checked').length
 	auto = document.querySelectorAll('input[type="checkbox"][class="auto"]:checked').length
     if (gigs >= 4 || auto > 0) {
