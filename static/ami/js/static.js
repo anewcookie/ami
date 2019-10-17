@@ -68,7 +68,7 @@ function descChange() {
     option = document.forms["inspection"]["desc"];
     objects = document.getElementsByClassName('descObject');
     if (option.checked == true) {
-        for (var i = 0; i < bars.length; i++)  {
+        for (var i = 0; i < objects.length; i++)  {
             objects[i].style.display='none';
         }
     }else{
