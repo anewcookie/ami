@@ -22,12 +22,13 @@ function w3_close() {
 }
 
 function statusChange() {
-    bars = document.getElementsByClassName('statusBar');
-    statusText = document.getElementsByClassName('status');
+   	bars = document.getElementsByClassName('statusBar');
+   	statusText = document.getElementsByClassName('status');
 	gigsText = document.getElementsByClassName('gigs');
-    PMI = document.forms["inspection"]["PMI"].value;
-	gigs = document.querySelectorAll('input.gig:checked').length
-    if (gigs >= 4) {
+   	PMI = document.forms["inspection"]["PMI"].value;
+	gigs = $('.gig:checkbox:checked').length
+	auto = $('.auto:checkbox:checked').length
+    if (gigs >= 4 || auto > 0) {
         for (var i = 0; i < bars.length; i++)  {
             bars[i].style.backgroundColor="red";
 			gigsText[i].textContent=gigs;
