@@ -8,7 +8,7 @@ from .models import Room
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-    email = forms.EmailField(max_length=254, help_text='Input a valid email address.')
+    email = forms.EmailField(max_length=254, help_text='Input a valid westpoint.edu address.')
 	
 	
     class Meta:
@@ -32,4 +32,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('squad', 'platoon', 'company', 'position')
+        fields = ('squad', 'platoon', 'company') #took out positions until I can make it secure

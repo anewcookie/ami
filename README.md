@@ -80,3 +80,10 @@ This website serves to digitalize AMI inspections. It consists of the following 
 
 ## LINKS TO REDEPLOY APPLICATION
 https://dashboard.heroku.com/apps/cadet-ami/deploy/heroku-git
+
+##Future Work
+validate westpoint.edu email address
+validate that email address exists
+update overview page
+update gigs
+pmi allow however many gigs
