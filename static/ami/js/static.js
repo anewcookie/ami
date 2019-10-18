@@ -26,8 +26,8 @@ function statusChange() {
    	statusText = document.getElementsByClassName('status');
 	gigsText = document.getElementsByClassName('gigs');
    	PMI = document.forms["inspection"]["PMI"].value;
-	gigs = document.querySelectorAll('input[type="checkbox"][class="gig"]:checked').length
-	auto = document.querySelectorAll('input[type="checkbox"][class="auto"]:checked').length
+	gigs = document.querySelectorAll('input.gig:checked').length
+	auto = document.querySelectorAll('input.auto:checked').length
     if (gigs >= 4 || auto > 0) {
         for (var i = 0; i < bars.length; i++)  {
             bars[i].style.backgroundColor="red";
