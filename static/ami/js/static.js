@@ -1,5 +1,5 @@
 // Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
+var mySidebar = document.getElementByClassName("w3-sidebar");
 
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
@@ -10,7 +10,7 @@ function w3_open() {
     mySidebar.style.display = 'none';
     overlayBg.style.display = "none";
   } else {
-    mySidebar.style.display = 'block';
+    mySidebar.style.di splay = 'block';
     overlayBg.style.display = "block";
   }
 }
