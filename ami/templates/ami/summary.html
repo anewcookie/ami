@@ -9,6 +9,16 @@
     <div class="w3-col s3"><h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5></div>
   </header>
 
+    
+  <!-- This dropdown allows the user to select a company -->
+  <h4>Select Company: 
+  <select name="company" onchange="(window.location = '/summary/' + this.options[this.selectedIndex].value);">
+  {% for company in companyList %}
+  <option value={{ company.name }} {%if company.name == home%} selected {%endif%}> {{company.name}}
+  {% endfor %}
+  </select>
+
+<!-- this is the legend and summary for the selected company -->
   <div class="w3-row">
     <div class="w3-container w3-quarter">
       <div class="w3-panel w3-pale-green w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-green w3-center" style='width:95%;margin:0px'><p> Pass: {{passCount}}</div>
@@ -23,14 +33,8 @@
       <div class="w3-panel w3-white w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-grey w3-center" style='width:95%;margin:0px'><p> Not Inspected:  {{nullCount}}</div>
     </div>
   </div>
-    
-  <!-- This dropdown allows the user to select a company -->
-  <h4>Select Company: 
-  <select name="company" onchange="(window.location = '/summary/' + this.options[this.selectedIndex].value);">
-  {% for company in companyList %}
-  <option value={{ company.name }} {%if company.name == home%} selected {%endif%}> {{company.name}}
-  {% endfor %}
-  </select>
+
+
   <!-- Rooms are displayed by whatever company is selected. Each can be clicked on to view that rooms history -->
   </h4>
   {% for room in roomList %}

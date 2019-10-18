@@ -71,6 +71,8 @@ def summary(request,company):
 #The inspection page allows users to inspect rooms. 
 @login_required
 def inspection(request):
+    amiGigMax = 3
+    pmiGigMax = 5
     if request.method == 'POST':
         form = request.POST
         print(form)
@@ -106,6 +108,8 @@ def inspection(request):
         'gigList': GigChoice.objects.all(),
         'typeList': Type.objects.all(),
         'home':home,
+        'amiGigMax':amiGigMax,
+        'pmiGigMax':pmiGigMax,
        }
     return HttpResponse(template.render(context, request))	
 
