@@ -1,5 +1,5 @@
 // Get the Sidebar
-var mySidebar = document.getElementByClassName("w3-sidebar");
+var mySidebar = document.getElementsByClassName("w3-sidebar")[0];
 
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
