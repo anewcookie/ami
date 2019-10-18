@@ -63,7 +63,7 @@ def summary(request,company):
         'home':company,
         'roomList': roomList,
 	'passCount': passCount,
-	'failCount': failedCount,
+	'failCount': failCount,
 	'pmiCount' : pmiCount,
 	'nullCount' : nullCount,
        }
