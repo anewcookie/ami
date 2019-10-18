@@ -62,10 +62,10 @@ def summary(request,company):
         'companyList': Company.objects.order_by('name'),
         'home':company,
         'roomList': roomList,
-	'passCount': passCount
-	'failedCount': failedCount
-	'pmiCount' : pmiCount
-	'nullCount' : nullCount
+	'passCount': passCount,
+	'failedCount': failedCount,
+	'pmiCount' : pmiCount,
+	'nullCount' : nullCount,
        }
     return HttpResponse(template.render(context, request))	    
 
