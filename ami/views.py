@@ -46,17 +46,17 @@ def summary(request,company):
         print(room.occupants)
         inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room)
         if inspection:
-	    status=inspection[0].status
+            status=inspection[0].status
             room.status=status
-	    if status = "Pass":
-		passCount += 1
-	    elif status = "Fail":
-		failCount += 1
-	    elif status = "PMI":
-		pmiCount += 1		
+            if status = "Pass":
+                passCount += 1
+            elif status = "Fail":
+                failCount += 1
+            elif status = "PMI":
+                pmiCount += 1		
         else:
             room.status=None
-	    nullCount += 1
+            nullCount += 1
 
     context = {
         'companyList': Company.objects.order_by('name'),
