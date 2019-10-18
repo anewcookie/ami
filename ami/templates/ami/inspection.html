@@ -57,7 +57,7 @@
 		  {% for gig in gigList %}
 		  {% if gig.type == type %}
 		  <div>
-		    <input class="w3-check gig {% if gig.type == 'Automatic Failure' %} auto {% endif %}" type="checkbox"name='{{ gig.gigName }}' onchange="statusChange()">
+		    <input class="w3-check gig {% if type.name == 'Automatic Failure' %} auto {% endif %}" type="checkbox"name='{{ gig.gigName }}' onchange="statusChange()">
 			<label>{{gig.gigName}}: 
 			  <span class='descObject'>{{ gig.gigDesc }}</span>
 			</label>
