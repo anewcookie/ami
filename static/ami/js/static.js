@@ -10,7 +10,7 @@ function w3_open() {
     mySidebar.style.display = 'none';
     overlayBg.style.display = "none";
   } else {
-    mySidebar.style.di splay = 'block';
+    mySidebar.style.display = 'block';
     overlayBg.style.display = "block";
   }
 }
