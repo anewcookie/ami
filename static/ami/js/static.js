@@ -1,6 +1,7 @@
 var mySidebar = document.getElementById("mySidebar");
 var overlayBg = document.getElementById("myOverlay");
 var page = document.getElementById("page");
+
 // Toggle between showing and hiding the sidebar, and add overlay effect
 function w3_open() {
   mySidebar = document.getElementById("mySidebar");

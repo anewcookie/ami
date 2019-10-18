@@ -4,11 +4,15 @@ from django.contrib.auth.models import User
 from .models import Profile
 from .models import Room
 
+def validate_email(value):
+    if '@westpoint.edu' not in value:
+        raise ValidationError('Email format is incorrect')
+
 #This form is shown to users who want to create a new account.
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-    email = forms.EmailField(max_length=254, help_text='Input a valid westpoint.edu address.')
+    email = forms.EmailField(max_length=254, help_text='Input a valid westpoint.edu address.', validators=[validate_email])
 	
 	
     class Meta:

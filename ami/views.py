@@ -164,7 +164,7 @@ def settings(request):
         'profile_form': profile_form
     })
 
-#The signup page allows new users to sign up for accounts.
+#The page allows new users to sign up for accounts.
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
