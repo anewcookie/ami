@@ -10,16 +10,16 @@
    <div class="w3-col s3"><h5><b><i class="fa fa-dashboard"></i> Company Summary</b></h5></div>
     <div class="w3-col s2">
     <!-- Legend -->
-      <div class="w3-panel w3-pale-green w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-green w3-center" style='width:95%;margin:0px'><p> Pass</div>
+      <div class="w3-panel w3-pale-green w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-green w3-center" style='width:95%;margin:0px'><p> Pass: {{passCount}}</div>
     </div>
     <div class="w3-col s2">
-      <div class="w3-panel w3-pale-red w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-red w3-center" style='width:95%;margin:0px'><p> Fail</div>
+      <div class="w3-panel w3-pale-red w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-red w3-center" style='width:95%;margin:0px'><p> Fail: {{failCount}}</div>
     </div>
     <div class="w3-col s2">
-      <div class="w3-panel w3-pale-blue w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-blue w3-center" style='width:95%;margin:0px'><p> PMI </div>
+      <div class="w3-panel w3-pale-blue w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-blue w3-center" style='width:95%;margin:0px'><p> PMI:  {{pmiCount}}</div>
     </div>
     <div class="w3-col s2">
-      <div class="w3-panel w3-white w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-grey w3-center" style='width:95%;margin:0px'><p> Not Inspected </div>
+      <div class="w3-panel w3-white w3-rightbar w3-leftbar w3-bottombar w3-topbar w3-border-grey w3-center" style='width:95%;margin:0px'><p> Not Inspected:  {{nullCount}}</div>
     </div>
   </header>
     
@@ -32,11 +32,6 @@
   </select>
   <!-- Rooms are displayed by whatever company is selected. Each can be clicked on to view that rooms history -->
   </h4>
-  Summary
-  Not Inspected: {{nullCount}}
-  Passed: {{passCount}}
-  Failed: {{failCount}}
-  PMI: {{pmiCount}}
   {% for room in roomList %}
   <div class=" w3-hover-shadow w3-xxlarge" id="r" style="box-sizing:content-box; font-family:'Comic Sans MS'; margin:5px;">
     <a href="/room/{{room}}"> 

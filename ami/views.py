@@ -31,8 +31,7 @@ def summary(request,company):
         try:
             company=request.user.profile.company.name
         except Exception:
-            messages.error(request, 'Please update your company information.')
-            return redirect('/settings/')
+            company="A1"
     profileList=Profile.objects.filter(company__name=company).order_by('room')
     roomList=set()
     passCount = 0
