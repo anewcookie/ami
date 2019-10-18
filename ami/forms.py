@@ -3,10 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile
 from .models import Room
+from django.core.exceptions import ValidationError
 
 def validate_email(value):
     if '@westpoint.edu' not in value:
-        raise ValidationError('Email format is incorrect')
+        raise ValidationError('Please enter a valid westpoint.edu address')
 
 #This form is shown to users who want to create a new account.
 class SignUpForm(UserCreationForm):
