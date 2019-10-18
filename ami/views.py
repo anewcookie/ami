@@ -35,6 +35,10 @@ def summary(request,company):
             return redirect('/settings/')
     profileList=Profile.objects.filter(company__name=company).order_by('room')
     roomList=set()
+    passCount = 0
+    failCount = 0
+    pmiCount = 0
+    nullCount = 0
     for profile in profileList:
         roomList.add(profile.room)
     for room in roomList:
@@ -42,13 +46,26 @@ def summary(request,company):
         print(room.occupants)
         inspection = Inspection.objects.filter(date=datetime.datetime.now().date(),room=room)
         if inspection:
-            room.status=inspection[0].status
+	    status=inspection[0].status
+            room.status=status
+	    if status = "Pass"
+		passCount += 1
+	    elif status = "Fail"
+		failCount += 1
+	    elif status = "PMI"
+		pmiCount += 1		
         else:
             room.status=None
+	    nullCount += 1
+
     context = {
         'companyList': Company.objects.order_by('name'),
         'home':company,
         'roomList': roomList,
+	'passCount': passCount
+	'failedCount': failedCount
+	'pmiCount' : pmiCount
+	'nullCount' : nullCount
        }
     return HttpResponse(template.render(context, request))	    
 

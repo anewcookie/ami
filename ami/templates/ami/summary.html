@@ -32,6 +32,11 @@
   </select>
   <!-- Rooms are displayed by whatever company is selected. Each can be clicked on to view that rooms history -->
   </h4>
+  Summary
+  Not Inspected: {{nullCount}}
+  Passed: {{passCount}}
+  Failed: {{failCount}}
+  PMI: {{pmiCount}}
   {% for room in roomList %}
   <div class=" w3-hover-shadow w3-xxlarge" id="r" style="box-sizing:content-box; font-family:'Comic Sans MS'; margin:5px;">
     <a href="/room/{{room}}"> 
