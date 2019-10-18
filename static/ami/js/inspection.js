@@ -1,4 +1,5 @@
-
+var amiMaxGigs = 3
+var pmiMaxGigs = 5
 
 function statusChange() {
    	bars = document.getElementsByClassName('statusBar');
@@ -7,7 +8,7 @@ function statusChange() {
    	PMI = document.forms["inspection"]["PMI"].value;
 	gigs = $('.gig:checkbox:checked').length;
 	auto = $('.auto:checkbox:checked').length;
-    if ((gigs >= '{{ amiMaxGigs }}' && PMI.includes("No")) || ((gigs >= '{{ pmiMaxGigs }}' && PMI.includes("Yes")) || auto > 0) {
+    if ((gigs >= amiMaxGigs && PMI.includes("No")) || ((gigs >= pmiMaxGigs && PMI.includes("Yes")) || auto > 0) {
         for (var i = 0; i < bars.length; i++)  {
             bars[i].style.backgroundColor="red";
 			gigsText[i].textContent=gigs;
