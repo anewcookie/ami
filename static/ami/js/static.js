@@ -9,11 +9,11 @@ function w3_open() {
   if (mySidebar.style.display === 'block') {
     mySidebar.style.display = 'none';
     overlayBg.style.display = "none";
-    page.style.margin-left = "0px";
+    page.style.marginLeft = "0px";
   } else {
     mySidebar.style.display = 'block';
     overlayBg.style.display = "block";
-    page.style.margin-left = "300px";
+    page.style.marginLeft = "300px";
   }
 }
 
@@ -24,7 +24,7 @@ function w3_close() {
   overlayBg = document.getElementById("myOverlay");
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
-  page.style.margin-left = "0px";
+  page.style.marginLeft = "0px";
 }
 
 function statusChange() {
