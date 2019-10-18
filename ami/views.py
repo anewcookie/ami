@@ -48,11 +48,11 @@ def summary(request,company):
         if inspection:
 	    status=inspection[0].status
             room.status=status
-	    if status = "Pass"
+	    if status = "Pass":
 		passCount += 1
-	    elif status = "Fail"
+	    elif status = "Fail":
 		failCount += 1
-	    elif status = "PMI"
+	    elif status = "PMI":
 		pmiCount += 1		
         else:
             room.status=None
