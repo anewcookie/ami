@@ -24,7 +24,6 @@ def overview(request):
     return HttpResponse(template.render(context, request))	
 
 #The summary page shows the status of rooms by company.
-@login_required
 def summary(request,company):
     template = loader.get_template('ami/summary.html')
     if company=="0":
