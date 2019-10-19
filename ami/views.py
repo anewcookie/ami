@@ -71,7 +71,7 @@ def summary(request,company):
 #The inspection page allows users to inspect rooms. 
 @login_required
 def inspection(request):
-    amiGigMax = 3 #These values currently have no effect. The gig maxes are hardcoded in inspection.js
+    amiGigMax = 3 
     pmiGigMax = 5
     if request.method == 'POST':
         form = request.POST
