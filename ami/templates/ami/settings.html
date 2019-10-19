@@ -11,8 +11,9 @@
         <div class="w3-panel w3-yellow w3-card-4">{{ message }}</div>
     {% endfor %}
   {% endif %}
-    <h5><b><i class="fa fa-dashboard"></i>Settings</b></h5>
+    <h5><b><i class="fa fa-cog"></i>Settings</b></h5>
   </header>
+<div class = "w3-margin">
   <!-- This form is for User, Room, and Profile data -->
   <form method="post">
     {% csrf_token %}
